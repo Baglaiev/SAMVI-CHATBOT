@@ -1,0 +1,25 @@
+prepare:
+  chunk_size: 1000
+  chunk_overlap: 200
+
+embeddings:
+  model_name: "BAAI/bge-large-en-v1.5"
+  batch_size: 32
+
+retrieval:
+  search_type: "mmr"
+  k: 3
+  fetch_k: 4
+
+llm:
+  model: "claude-sonnet-4-20250514"
+  temperature: 0.7
+  max_tokens: 4096
+
+evaluation:
+  test_size: 0.2
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score

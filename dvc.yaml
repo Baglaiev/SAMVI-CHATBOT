@@ -1,0 +1,40 @@
+stages:
+  prepare_data:
+    cmd: python scripts/prepare_data.py
+    deps:
+      - data/raw/
+      - scripts/prepare_data.py
+    outs:
+      - data/processed/documents.pkl
+    params:
+      - prepare.chunk_size
+      - prepare.chunk_overlap
+
+  create_embeddings:
+    cmd: python scripts/create_embeddings.py
+    deps:
+      - data/processed/documents.pkl
+      - scripts/create_embeddings.py
+    outs:
+      - index_faiss/
+    params:
+      - embeddings.model_name
+      - embeddings.batch_size
+
+  evaluate_model:
+    cmd: python scripts/evaluate_model.py
+    deps:
+      - index_faiss/
+      - data/test/
+      - scripts/evaluate_model.py
+    metrics:
+      - metrics.json:
+          cache: false
+    plots:
+      - plots/confusion_matrix.png:
+          cache: false
+      - plots/performance.png:
+          cache: false
+    params:
+      - evaluation.test_size
+      - evaluation.metrics

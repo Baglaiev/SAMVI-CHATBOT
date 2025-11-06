@@ -1,0 +1,47 @@
+# Core dependencies
+langchain==0.1.0
+langchain-anthropic==0.1.1
+langchain-community==0.0.10
+langchain-huggingface==0.0.1
+anthropic==0.8.1
+
+# Vector database and embeddings
+faiss-cpu==1.7.4
+sentence-transformers==2.2.2
+
+# Document processing
+PyMuPDF==1.23.8
+pandas==2.1.4
+openpyxl==3.1.2
+python-docx==1.1.0
+textract==1.6.5
+
+# API and web interface
+streamlit==1.29.0
+fastapi==0.108.0
+uvicorn==0.25.0
+pydantic==2.5.3
+
+# Monitoring and ML
+evidently==0.4.11
+mlflow==2.9.2
+
+# Data versioning
+dvc==3.38.1
+dvc-gdrive==3.0.1
+
+# Testing
+pytest==7.4.3
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+
+# Code quality
+black==23.12.1
+flake8==7.0.0
+isort==5.13.2
+mypy==1.7.1
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0
+pyyaml==6.0.1

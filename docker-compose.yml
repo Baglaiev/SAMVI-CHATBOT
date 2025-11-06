@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  chatbot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: it-support-chatbot
+    ports:
+      - "8501:8501"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - ENVIRONMENT=${ENVIRONMENT:-production}
+    volumes:
+      - ./data:/app/data
+      - ./index_faiss:/app/index_faiss
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - chatbot-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add monitoring with Evidently
+  monitoring:
+    image: evidently/evidently-ui:latest
+    container_name: chatbot-monitoring
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./monitoring:/app/monitoring
+    networks:
+      - chatbot-network
+    restart: unless-stopped
+
+networks:
+  chatbot-network:
+    driver: bridge
